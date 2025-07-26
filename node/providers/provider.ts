@@ -7,6 +7,7 @@ import type { Provider, ProviderName } from "./provider-types.ts";
 import { type EditPredictionProfile, type Profile } from "../options.ts";
 import { OllamaProvider } from "./ollama.ts";
 import { CopilotProvider } from "./copilot.ts";
+import { OpenAICompatibelProvider } from "./openai-compatible.ts";
 
 export * from "./provider-types.ts";
 
@@ -51,6 +52,12 @@ export function getProvider(
         break;
       case "copilot":
         clients[clientKey] = new CopilotProvider(nvim);
+        break;
+      case "openai-compatible":
+        clients[clientKey] = new OpenAICompatibelProvider(nvim, {
+          baseUrl: profile.baseUrl,
+          apiKeyEnvVar: profile.apiKeyEnvVar,
+        });
         break;
       default:
         assertUnreachable(profile.provider);

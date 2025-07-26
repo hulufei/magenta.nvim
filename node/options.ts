@@ -30,6 +30,7 @@ const DEFAULT_MODELS: Record<
     model: "claude-3.7-sonnet",
     fastModel: "claude-3-5-haiku-latest",
   },
+  "openai-compatible": { model: "", fastModel: "" },
 };
 
 export type Profile = {
@@ -205,12 +206,12 @@ function parseProfiles(
             : defaults.fastModel,
       };
 
-      if ("base_url" in p) {
-        if (typeof p["base_url"] === "string") {
-          out.baseUrl = p["base_url"];
+      if ("baseUrl" in p) {
+        if (typeof p["baseUrl"] === "string") {
+          out.baseUrl = p["baseUrl"];
         } else {
           logger.warn(
-            `Invalid base_url in profile ${p["name"]}, ignoring field`,
+            `Invalid baseUrl in profile ${p["name"]}, ignoring field`,
           );
         }
       }
